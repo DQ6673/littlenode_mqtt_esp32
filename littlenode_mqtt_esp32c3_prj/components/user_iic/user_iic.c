@@ -3,8 +3,8 @@
 #include "driver/i2c.h"
 #include "esp_err.h"
 
-#define I2C_SDA_GPIO_NUM GPIO_NUM_18
-#define I2C_SCL_GPIO_NUM GPIO_NUM_19
+#define I2C_SDA_GPIO_NUM GPIO_NUM_3
+#define I2C_SCL_GPIO_NUM GPIO_NUM_4
 #define I2C_FREQ_HZ (100 * 1000)
 #define I2C_PORT_NUM I2C_NUM_0
 #define I2C_WAIT_MS (500)

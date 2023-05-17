@@ -7,12 +7,16 @@
 
 #include "user_iic.h"
 #include "wifi_connect.h"
+#include "mqtt_app.h"
+#include "sht20_app.h"
 
-
-static const char *TAG = "start";
+static const char *TAG = "main";
 
 void app_main(void)
 {
+    ESP_ERROR_CHECK(i2c_master_init());
+    sht20_app_start();
+
     // Initialize NVS
     esp_err_t ret = nvs_flash_init();
     if (ret == ESP_ERR_NVS_NO_FREE_PAGES || ret == ESP_ERR_NVS_NEW_VERSION_FOUND)
@@ -22,12 +26,7 @@ void app_main(void)
     }
     ESP_ERROR_CHECK(ret);
 
-    // init iic bus
-    // ESP_ERROR_CHECK(i2c_master_init(void));
-
-    ESP_LOGI(TAG, "ESP_WIFI_MODE_STA");
-
-    // wifi connect
     wifi_init_sta();
 
+    mqtt_app_start();
 }

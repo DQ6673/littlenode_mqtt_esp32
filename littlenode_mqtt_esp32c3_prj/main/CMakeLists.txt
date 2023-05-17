@@ -4,10 +4,9 @@ set(includes ".")
 
 set(requires 
                 "driver"
-                "nvs_flash"
                 "wifi_connect"    
-                "SHT20"
-                #"mqtt_app"
+                "sht20"
+                "mqtt_app"
                 "user_iic"
 )
 

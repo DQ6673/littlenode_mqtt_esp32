@@ -1,6 +1,3 @@
-#ifndef _SHT20_H_
-#define _SHT20_H_
-
 #include "esp_err.h"
 
 /// @brief reset the sht20
@@ -24,5 +21,3 @@ void sht20_trigger_RH(void);
 /// @param c_rh data save in this pointer
 /// @return ESP_OK or error code
 esp_err_t sht20_recive_RH(float *c_rh);
-
-#endif

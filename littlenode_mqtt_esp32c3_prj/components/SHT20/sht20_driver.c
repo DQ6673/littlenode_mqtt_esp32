@@ -1,4 +1,4 @@
-#include "sht20.h"
+#include "sht20_driver.h"
 #include "user_iic.h"
 #include "esp_log.h"
 

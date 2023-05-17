@@ -3,7 +3,9 @@ set(srcs "mqtt_app.c")
 set(includes ".")
 
 set(requires 
-
+                "wifi_connect"
+                "mqtt"
+                "sht20"
                 )
 
 
