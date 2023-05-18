@@ -9,6 +9,7 @@
 #include "wifi_connect.h"
 #include "mqtt_app.h"
 #include "sht20_app.h"
+#include "led_app.h"
 
 static const char *TAG = "main";
 
@@ -26,6 +27,7 @@ void app_main(void)
     }
     ESP_ERROR_CHECK(ret);
 
+    led_app_start();
     wifi_init_sta();
 
     mqtt_app_start();

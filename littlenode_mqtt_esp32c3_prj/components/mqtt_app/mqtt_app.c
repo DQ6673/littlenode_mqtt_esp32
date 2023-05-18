@@ -15,6 +15,7 @@
 
 #include "mqtt_app.h"
 #include "sht20_app.h"
+#include "led_app.h"
 
 static const char *TAG = "mqtts_app";
 
@@ -53,6 +54,7 @@ QueueHandle_t mqtt_app_queue = NULL;
 mqtt_app_queue_payload_t *mqtt_payload;
 
 extern TaskHandle_t task_sht20_get_handle;
+extern QueueHandle_t led_app_queue;
 
 TaskHandle_t task_mqtt_handler_handle;
 #define task_mqtt_handler_stackdepth 1024 * 3
@@ -64,13 +66,15 @@ static void mqtt_event_handler(void *handler_args, esp_event_base_t base, int32_
     esp_mqtt_event_handle_t event = event_data;
     esp_mqtt_client_handle_t client = event->client;
     int msg_id;
+    blink_state_t blink = DEFAULT;
     switch ((esp_mqtt_event_id_t)event_id)
     {
     case MQTT_EVENT_CONNECTED:
         ESP_LOGI(TAG, "MQTT_EVENT_CONNECTED");
         msg_id = esp_mqtt_client_subscribe(client, MQTT_TOPIC, 0);
         ESP_LOGI(TAG, "sent subscribe successful, msg_id=%d", msg_id);
-
+        blink = MQTT_CONNECTED;
+        xQueueSend(led_app_queue, &blink, 0);
         // msg_id = esp_mqtt_client_subscribe(client, "/topic/qos1", 1);
         // ESP_LOGI(TAG, "sent subscribe successful, msg_id=%d", msg_id);
 
@@ -96,6 +100,8 @@ static void mqtt_event_handler(void *handler_args, esp_event_base_t base, int32_
         ESP_LOGI(TAG, "MQTT_EVENT_DATA");
         printf("TOPIC=%.*s\r\n", event->topic_len, event->topic);
         printf("DATA=%.*s\r\n", event->data_len, event->data);
+        blink = MQTT_PUBLISHED;
+        xQueueSend(led_app_queue, &blink, 0);
         // if (strncmp(event->data, "send binary please", event->data_len) == 0)
         // {
         //     ESP_LOGI(TAG, "Sending the binary");

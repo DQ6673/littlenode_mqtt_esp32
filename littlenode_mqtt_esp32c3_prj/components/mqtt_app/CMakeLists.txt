@@ -6,6 +6,7 @@ set(requires
                 "wifi_connect"
                 "mqtt"
                 "sht20"
+                "led_state"
                 )
 
 

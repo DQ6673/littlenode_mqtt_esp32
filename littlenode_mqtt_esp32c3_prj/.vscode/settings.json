@@ -24,6 +24,7 @@
         "system_error": "c",
         "task.h": "c",
         "mqtt_client.h": "c",
-        "sht20_app.h": "c"
+        "sht20_app.h": "c",
+        "led_app.h": "c"
     }
 }

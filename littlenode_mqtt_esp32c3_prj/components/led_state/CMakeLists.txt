@@ -1,15 +1,11 @@
-set(srcs "app_main.c")
+set(srcs "led_driver.c" "led_app.c")
 
 set(includes ".")
 
 set(requires 
                 "driver"
-                "wifi_connect"    
-                "sht20"
-                "mqtt_app"
-                "user_iic"
-                "led_state"
-)
+                )
+
 
 idf_component_register(SRCS ${srcs}
                        INCLUDE_DIRS ${includes}
